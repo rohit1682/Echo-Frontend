@@ -44,3 +44,6 @@ example
 
 # Local env (EXPO_PUBLIC_* are public, but keep .env out of git)
 .env
+
+# test coverage
+/coverage
