@@ -26,8 +26,8 @@ Then press `i` (iOS simulator), `a` (Android emulator), `w` (web), or scan the Q
 
 The API base URL is auto-selected for local dev (see [.env.example](.env.example)):
 
-- iOS simulator / web → `http://localhost:4000/api`
-- Android emulator → `http://10.0.2.2:4000/api`
+- iOS simulator / web → `http://localhost:4001/api`
+- Android emulator → `http://10.0.2.2:4001/api`
 - Physical device → set `EXPO_PUBLIC_API_URL` to your machine's LAN IP.
 
 ### Demo login

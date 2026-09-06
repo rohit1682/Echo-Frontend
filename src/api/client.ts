@@ -11,8 +11,9 @@ import { apiLog } from '../utils/logger';
 function resolveBaseUrl(): string {
   const fromEnv = process.env.EXPO_PUBLIC_API_URL;
   if (fromEnv) return fromEnv.replace(/\/$/, '');
+  // Backend runs on port 4001 (the Expo dev server uses 4000).
   const host = Platform.OS === 'android' ? '10.0.2.2' : 'localhost';
-  return `http://${host}:4000/api`;
+  return `http://${host}:4001/api`;
 }
 
 export const API_BASE_URL = resolveBaseUrl();

@@ -11,15 +11,15 @@ is auto-selected (see `src/api/client.ts`):
 
 | Environment | API URL used |
 | --- | --- |
-| iOS simulator / web | `http://localhost:4000/api` |
-| Android emulator | `http://10.0.2.2:4000/api` |
+| iOS simulator / web | `http://localhost:4001/api` |
+| Android emulator | `http://10.0.2.2:4001/api` |
 | **Physical device** | You must set `EXPO_PUBLIC_API_URL` (see below) |
 
 Create `Echo-Frontend/.env` (see [.env.example](.env.example)) only when you need to override:
 
 | Variable | When you need it | Value |
 | --- | --- | --- |
-| `EXPO_PUBLIC_API_URL` | Physical device, or a deployed backend | e.g. `http://192.168.1.50:4000/api` (your machine's LAN IP) or `https://api.yourdomain.com/api` |
+| `EXPO_PUBLIC_API_URL` | Physical device, or a deployed backend | e.g. `http://192.168.1.50:4001/api` (your machine's LAN IP) or `https://api.yourdomain.com/api` |
 
 > **Google & Apple sign-in are disabled in the app UI right now** (their buttons are hidden in
 > `src/features/auth/AuthShared.tsx`), so you don't need any OAuth setup or a paid Apple account to
@@ -40,9 +40,10 @@ For **store builds** you'll also need (later, at deploy time — none needed now
 
 ```bash
 npm install
-# start the backend first (see ../Echo-Backend/SETUP.md), then:
-npx expo start
+# start the backend first (see ../Echo-Backend/SETUP.md — it runs on port 4001), then:
+npm start
 ```
+`npm start` runs the Expo dev server on **port 4000** (the backend is on **4001**).
 Press `i` (iOS), `a` (Android), or `w` (web); or scan the QR code with the **Expo Go** app.
 
 Demo login (after seeding the backend): `demo@echo.app` / `Password123`.
