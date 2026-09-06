@@ -21,11 +21,18 @@ Create `Echo-Frontend/.env` (see [.env.example](.env.example)) only when you nee
 | --- | --- | --- |
 | `EXPO_PUBLIC_API_URL` | Physical device, or a deployed backend | e.g. `http://192.168.1.50:4000/api` (your machine's LAN IP) or `https://api.yourdomain.com/api` |
 
-For **store builds** you'll also need (later, at deploy time):
+> **Google & Apple sign-in are disabled in the app UI right now** (their buttons are hidden in
+> `src/features/auth/AuthShared.tsx`), so you don't need any OAuth setup or a paid Apple account to
+> run or use the app. Email/password sign-in works fully; a phone-OTP button is shown (dev-only,
+> free). The backend endpoints are untouched — re-enable the buttons whenever you're ready.
+
+For **store builds** you'll also need (later, at deploy time — none needed now):
 - An **Expo account** (free) — `npx expo login`.
-- An **Apple Developer account** ($99/yr) to ship to the App Store and to enable "Sign in with Apple".
-- A **Google Play Developer account** ($25 one-time) for the Play Store.
-- For Google Sign-In: OAuth client IDs (same ones configured on the backend).
+- A **Google Play Developer account** ($25 one-time) to publish to the Play Store.
+- An **Apple Developer account** ($99/yr) — only if/when you want to publish to the **App Store**
+  (required to build for iOS at all) or later turn on "Sign in with Apple".
+- To re-enable **Google Sign-In** later: create OAuth client IDs in the Google Cloud Console (free),
+  set `GOOGLE_CLIENT_IDS` on the backend, and restore the Google button in `AuthShared.tsx`.
 
 ---
 

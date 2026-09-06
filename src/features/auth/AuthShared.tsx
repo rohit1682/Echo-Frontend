@@ -30,9 +30,12 @@ export function BrandHeader({ subtitle }: { subtitle: string }) {
 
 export function SocialRow({ onPress }: { onPress: () => void }) {
   const theme = useTheme();
+  // Google & Apple sign-in are hidden for now (no paid Apple account / OAuth setup
+  // needed while disabled). The backend endpoints stay in place — to re-enable,
+  // add these entries back:
+  //   { icon: 'logo-google', label: 'Google' },
+  //   { icon: 'logo-apple', label: 'Apple' },
   const buttons: { icon: keyof typeof Ionicons.glyphMap; label: string }[] = [
-    { icon: 'logo-google', label: 'Google' },
-    { icon: 'logo-apple', label: 'Apple' },
     { icon: 'call-outline', label: 'OTP' },
   ];
   return (
