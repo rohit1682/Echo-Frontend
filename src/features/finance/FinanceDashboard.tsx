@@ -10,17 +10,19 @@ import {
   GradientHero,
   AnimatedNumber,
   DonutChart,
+  TrendChart,
   SkeletonCard,
   PressableScale,
 } from '../../components';
 import type { DonutSlice } from '../../components';
 import { useTheme } from '../../theme/ThemeProvider';
-import { useDashboard } from '../../api/hooks';
+import { useDashboard, useNetWorthHistory } from '../../api/hooks';
 import { formatCurrency, formatPercent } from '../../utils/format';
 
 export function FinanceDashboard({ onSeeInvestments }: { onSeeInvestments: () => void }) {
   const theme = useTheme();
   const { data, isLoading, refetch, isRefetching } = useDashboard();
+  const { data: history } = useNetWorthHistory(60);
 
   if (isLoading || !data) {
     return (
@@ -36,6 +38,10 @@ export function FinanceDashboard({ onSeeInvestments }: { onSeeInvestments: () =>
 
   const { totals, netWorth, allocationByType, currency } = data;
   const gainPositive = totals.totalGain >= 0;
+
+  // History arrives newest-first; the chart wants oldest → newest.
+  const trendValues = (history ?? []).slice().reverse().map((p) => p.netWorth);
+  const trendPositive = trendValues.length >= 2 && trendValues[trendValues.length - 1] >= trendValues[0];
 
   const slices: DonutSlice[] = allocationByType.map((a, i) => ({
     label: a.label,
@@ -118,6 +124,31 @@ export function FinanceDashboard({ onSeeInvestments }: { onSeeInvestments: () =>
             </View>
           </Card>
         </Animated.View>
+
+        {/* Net-worth trend */}
+        {trendValues.length >= 2 && (
+          <Animated.View entering={FadeInDown.delay(170).duration(450)}>
+            <Card>
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+                <Text variant="heading">Net worth trend</Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+                  <Ionicons
+                    name={trendPositive ? 'trending-up' : 'trending-down'}
+                    size={16}
+                    color={trendPositive ? theme.colors.success : theme.colors.danger}
+                  />
+                  <Text variant="caption" color={trendPositive ? 'success' : 'danger'}>
+                    {trendValues.length} points
+                  </Text>
+                </View>
+              </View>
+              <TrendChart
+                values={trendValues}
+                color={trendPositive ? theme.colors.success : theme.colors.danger}
+              />
+            </Card>
+          </Animated.View>
+        )}
 
         {/* Allocation donut */}
         {slices.length > 0 && (

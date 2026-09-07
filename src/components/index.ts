@@ -12,6 +12,7 @@ export { Chip } from './Chip';
 export { EmptyState } from './EmptyState';
 export { DonutChart } from './DonutChart';
 export type { DonutSlice } from './DonutChart';
+export { TrendChart } from './TrendChart';
 export { GradientHero } from './GradientHero';
 export { Sheet } from './Sheet';
 export { DateField } from './DateField';
