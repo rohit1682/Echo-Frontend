@@ -26,7 +26,7 @@ export default function AdvisorScreen() {
   return (
     <Screen onRefresh={refetch} refreshing={isRefetching}>
       <Text variant="title" style={{ marginBottom: 4 }}>
-        Echo Advisor
+        Insights
       </Text>
       <Text variant="body" color="textMuted" style={{ marginBottom: 16 }}>
         Personalized guidance from your own finances and activity.
@@ -35,15 +35,13 @@ export default function AdvisorScreen() {
       <Animated.View entering={FadeInDown.duration(450)}>
         <GradientHero>
           <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
-            <Ionicons name="sparkles" size={22} color="#fff" />
+            <Ionicons name="bulb" size={22} color="#fff" />
             <Text variant="heading" style={{ color: '#fff' }}>
-              {data?.source === 'llm' ? 'AI-personalized advice' : 'Smart recommendations'}
+              Smart insights
             </Text>
           </View>
           <Text style={{ color: 'rgba(255,255,255,0.9)', marginTop: 8 }}>
-            {data?.llmEnabled
-              ? 'Enhanced with AI, grounded in your real data.'
-              : 'Powered by Echo’s rules engine — always free. Add an AI key on the server for conversational advice.'}
+            Grounded in your real finances — always free.
           </Text>
         </GradientHero>
       </Animated.View>
@@ -98,14 +96,6 @@ function RecommendationCard({ rec, index }: { rec: Recommendation; index: number
             <Text variant="body" color="textMuted" style={{ marginTop: 4, lineHeight: 20 }}>
               {rec.message}
             </Text>
-            {rec.source === 'llm' && (
-              <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4, marginTop: 8 }}>
-                <Ionicons name="sparkles-outline" size={12} color={theme.colors.accent} />
-                <Text variant="caption" color="accent">
-                  AI personalized
-                </Text>
-              </View>
-            )}
           </View>
         </View>
       </Card>

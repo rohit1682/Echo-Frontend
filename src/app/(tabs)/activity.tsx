@@ -5,35 +5,18 @@ import Animated, { FadeIn } from 'react-native-reanimated';
 import { Screen, Text, SegmentedControl, EmptyState } from '../../components';
 import type { Segment } from '../../components';
 import { useTheme } from '../../theme/ThemeProvider';
+import { TasksPanel } from '../../features/activity/TasksPanel';
+import { CalendarPanel } from '../../features/activity/CalendarPanel';
 
 const SEGMENTS: Segment[] = [
-  { key: 'calendar', label: 'Calendar' },
   { key: 'tasks', label: 'Tasks' },
+  { key: 'calendar', label: 'Calendar' },
   { key: 'birthdays', label: 'Birthdays' },
 ];
 
-const PANELS: Record<string, { icon: any; title: string; subtitle: string }> = {
-  calendar: {
-    icon: 'calendar-outline',
-    title: 'Your calendar',
-    subtitle: 'Day, week and month views with your events, financial due dates and reminders — arriving next.',
-  },
-  tasks: {
-    icon: 'checkbox-outline',
-    title: 'Daily tasks',
-    subtitle: 'Create one-time and recurring tasks and check them off with a satisfying tap.',
-  },
-  birthdays: {
-    icon: 'gift-outline',
-    title: 'Birthdays & dates',
-    subtitle: 'Import from contacts and never miss a birthday or anniversary again.',
-  },
-};
-
 export default function ActivityScreen() {
   const theme = useTheme();
-  const [segment, setSegment] = useState('calendar');
-  const panel = PANELS[segment];
+  const [segment, setSegment] = useState('tasks');
 
   return (
     <Screen scroll={false} padded={false}>
@@ -49,9 +32,17 @@ export default function ActivityScreen() {
       </View>
 
       <Animated.View key={segment} entering={FadeIn.duration(220)} style={{ flex: 1 }}>
-        <Screen topInset={false}>
-          <EmptyState icon={panel.icon} title={panel.title} subtitle={panel.subtitle} />
-        </Screen>
+        {segment === 'tasks' && <TasksPanel />}
+        {segment === 'calendar' && <CalendarPanel />}
+        {segment === 'birthdays' && (
+          <Screen topInset={false}>
+            <EmptyState
+              icon="gift-outline"
+              title="Birthdays & dates"
+              subtitle="Import from contacts and never miss a birthday or anniversary again — coming soon."
+            />
+          </Screen>
+        )}
       </Animated.View>
     </Screen>
   );

@@ -8,7 +8,7 @@ interface Props {
   style?: ViewStyle;
 }
 
-/** A premium indigo→violet gradient card used for the hero net-worth panel. */
+/** A premium teal→emerald (Aurora) gradient card used for the hero net-worth panel. */
 export function GradientHero({ children, style }: Props) {
   const theme = useTheme();
   return (
